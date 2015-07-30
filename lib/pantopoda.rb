@@ -23,7 +23,7 @@ module Pantopoda
 			# Defaults to -1 so it will always keep running until it runs out of urls
 			max_urls = options[:max_urls] ? options[:max_urls] : nil
 
-			@hydra = Typheous::Hydra.new(:max_concurrency => threads)
+			@hydra = Typhoeus::Hydra.new(:max_concurrency => threads)
 			@global_visited = BloomFilter::Native.new(:size => 1000000, :hashes => 5, :seed => 1, :bucket => 8, :raise => false)
 			@global_queue = []
 
@@ -35,7 +35,7 @@ module Pantopoda
 					begin
 						ip,port,user,pass = nil
 
-						request = Typheous::Request.new(q, :timeout => 10000, :follow_location => true) if ip == nil
+						request = Typhoeus::Request.new(q, :timeout => 10000, :follow_location => true) if ip == nil
 						request.on_complete do |response|
 							yield response
 							links = Nokogiri::HTML.parse(response.body).xpath('.//a/@href')
