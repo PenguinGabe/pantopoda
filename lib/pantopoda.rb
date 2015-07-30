@@ -72,7 +72,7 @@ module Pantopoda
 			begin
 				parsed_domain = Domainatrix.parse(url)
 				if (parsed_domain.subdomain != "")
-					parsed_domain.subdomain + '.' + parsed_domain + '.' + parse_domain.public_suffix
+					parsed_domain.subdomain + '.' + parsed_domain.domain + '.' + parse_domain.public_suffix
 				else
 					parse_domain.domain + '.' + parsed_domain.public_suffix
 				end
