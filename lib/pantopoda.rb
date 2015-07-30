@@ -5,7 +5,7 @@ require 'nokogiri'
 require 'domainatrix'
 require 'uri'
 
-class Pantopoda
+module Pantopoda
 	def initialize(url, options = {})
 		@start_url = url
 		@domain = parse_domain(url)
