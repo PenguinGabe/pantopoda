@@ -14,6 +14,7 @@ module Pantopoda
 			@split_url_at_hash = options[:split_url_at_hash] ? options[:split_url_at_hash] : false
 			@exclude_urls_with_hash = options[:exclude_urls_with_hash] ? options[:exclude_urls_with_hash] : false
 			@exclude_urls_with_extensions = options[:exclude_urls_with_extensions] ? options[:exclude_urls_with_extensions] : false
+			@debug = options[:debug] ? options[:debug] : false
 		end
 
 		def crawl(options = {})
@@ -35,7 +36,7 @@ module Pantopoda
 					begin
 						ip,port,user,pass = nil
 
-						request = Typhoeus::Request.new(q, :timeout => 10000, :follow_location => true) if ip == nil
+						request = Typhoeus::Request.new(q, :timeout => 100, :follow_location => true) if ip == nil
 						request.on_complete do |response|
 							yield response
 							links = Nokogiri::HTML.parse(response.body).xpath('.//a/@href')
@@ -67,7 +68,7 @@ module Pantopoda
 		end
 
 		def parse_domain(url)
-			puts "Parsing URL: #{url}"
+			puts "Parsing URL: #{url}" if @debug
 
 			begin
 				parsed_domain = Domainatrix.parse(url)
@@ -78,7 +79,7 @@ module Pantopoda
 				end
 
 			rescue NoMethodError, Addressable::URI::InvalidURIError => e
-				puts "URL Parsing Exception (#{url}) : #{e}"
+				puts "URL Parsing Exception (#{url}) : #{e}" if @debug
 				return nil
 			end
 		end
@@ -117,7 +118,7 @@ module Pantopoda
 			@exclude_urls_with_extensions.each do |e|
 				if(url.to_s.length > e.size && url.to_s[-e.size .. -1].downcase == e.to_s.downcase)
 					not_found = false
-					puts "#{e} Found At URL: #{url}"
+					puts "#{e} Found At URL: #{url}" if @debug
 				end
 			end
 
