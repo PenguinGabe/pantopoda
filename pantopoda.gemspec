@@ -24,5 +24,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency('typhoeus',    '0.7.2')
   spec.add_dependency('bloomfilter-rb',    '2.1.1')
   spec.add_dependency('nokogiri',    '1.6.2')
-  spec.add_dependency('domainatrix')
+  source 'http://gemcutter.org' do
+    spec.add_dependency('domainatrix')
+  end
 end
