@@ -1,6 +1,8 @@
 # Pantopoda
 
-TODO: Write a gem description
+Pantopoda is a ruby spidering library that was built out of sheer frustration at the lack of good, modern web crawling tools that Python enjoys. Pantopoda uses bloom filters to store the list of visited urls for efficient querying up to hundreds of thousands of urls, and the requests are handled by Typhoeus to allow for multi-threaded crawling.
+
+Pantopoda will crawl every single page it can find on a particular domain.
 
 ## Installation
 
