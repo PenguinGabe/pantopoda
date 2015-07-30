@@ -41,9 +41,9 @@ module Pantopoda
 							links = Nokogiri::HTML.parse(response.body).xpath('.//a/@href')
 							links.each do |link|
 								if (internal_link?(link, response.effective_url) && !@global_visited.include?(make_absolute(link, response.effective_url)) && no_hash_in_url?(link) && ignore_extensions(link))
-									sanitized_link = sanitized_link(split_url_at_hash(link))
-									if (sanitized_link)
-										absolute_link = make_absolute(sanitized_link, response.effective_url)
+									sanitize_link = sanitize_link(split_url_at_hash(link))
+									if (sanitize_link)
+										absolute_link = make_absolute(sanitize_link, response.effective_url)
 										if absolute_link
 											@global_queue << absolute_link
 										end
