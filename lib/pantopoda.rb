@@ -136,7 +136,7 @@ module Pantopoda
 		def make_absolute(href, root)
 			begin
 		  		URI.parse(root).merge(URI.parse(split_url_at_hash(href.to_s.gsub(/\s+/, "%20")))).to_s
-		  	rescue URI::InvalidURIError, URI::InvalidComponentError => e
+		  	rescue URI::InvalidURIError, URI::InvalidComponentError, NoMethodError => e
 		  		return false
 		  	end
 		end
